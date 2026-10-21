@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "author": "Uri Shaked",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-pi-pico", "id": "pico", "top": 63.95, "left": 86.4, "attrs": {} },
+    { "type": "wokwi-a4988", "id": "drv1", "top": 91.4, "left": 226, "rotate": 270, "attrs": {} },
+    {
+      "type": "wokwi-stepper-motor",
+      "id": "stepper1",
+      "top": -179.4,
+      "left": 141.6,
+      "attrs": { "display": "angle" }
+    },
+    { "type": "wokwi-hc-sr04", "id": "ultrasonic", "top": -150, "left": 380, "attrs": { "distance": "100" } },
+    { "type": "wokwi-servo", "id": "servo1", "top": 60, "left": 400, "attrs": {} }
+  ],
+  "connections": [
+    [ "drv1:1B", "stepper1:B-", "black", [ "v0" ] ],
+    [ "drv1:1A", "stepper1:B+", "green", [ "v0" ] ],
+    [ "stepper1:A+", "drv1:2A", "blue", [ "v0" ] ],
+    [ "stepper1:A-", "drv1:2B", "red", [ "v0" ] ],
+
+    [ "drv1:STEP", "pico:GP3", "orange", [ "v130.8", "h-203.87", "v-163.2" ] ],
+    [ "drv1:DIR", "pico:GP2", "violet", [ "v140.4", "h-223.07", "v-182.4" ] ],
+
+    [ "pico:3V3", "drv1:VDD", "red", [] ],
+    [ "pico:3V3", "drv1:SLEEP", "red", [] ],
+    [ "drv1:SLEEP", "drv1:RESET", "green", [ "v15.92", "h-9.9" ] ],
+
+    [ "pico:VBUS", "drv1:VMOT", "red", [] ],
+
+    [ "pico:GND.8", "drv1:GND.2", "black", [ "v0" ] ],
+    [ "pico:GND.8", "drv1:GND.1", "black", [] ],
+    [ "pico:GND.8", "drv1:ENABLE", "black", [] ],
+
+    [ "pico:VBUS", "ultrasonic:VCC", "red", [] ],
+    [ "pico:GND.8", "ultrasonic:GND", "black", [] ],
+    [ "pico:GP4", "ultrasonic:TRIG", "blue", [] ],
+    [ "pico:GP5", "ultrasonic:ECHO", "yellow", [] ],
+
+    [ "pico:GP19", "servo1:PWM", "orange", [] ],
+    [ "pico:VBUS", "servo1:V+", "red", [] ],
+    [ "pico:GND.8", "servo1:GND", "brown", [] ]
+  ],
+  "dependencies": {}
+}
